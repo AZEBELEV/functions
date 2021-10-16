@@ -121,6 +121,7 @@ function sortProducts(products, sortRule) {
     case ("name"): sortedProducts = products.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
+
       return 0;
     });
       break;
@@ -128,6 +129,7 @@ function sortProducts(products, sortRule) {
       break;
     default: console.log("invalid rule for sort");
   }
+
   return sortedProducts;
 }
 

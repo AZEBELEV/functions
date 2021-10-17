@@ -1,4 +1,4 @@
-
+'use strict'
 // Constructor for object Product
 
 function Product(ID, name, description, price, brand, sizes, activeSize, quantity, date, reviews, images) {
@@ -38,7 +38,7 @@ function Product(ID, name, description, price, brand, sizes, activeSize, quantit
   this.getImages = () => this.images;
 
   // Function witch returns item of array reviews(single object review)  
-  Review = (ID, author, comment, date, rating) => {
+  function Review(ID, author, comment, date, rating) {
     return {
       ID, author, comment,
       date: new Date(date),
@@ -61,7 +61,7 @@ function Product(ID, name, description, price, brand, sizes, activeSize, quantit
   }
 
   this.addReview = (ID, author, date, comment, rating) => {
-    this.reviews.push(Review(ID, author, date, comment, rating))
+    this.reviews.push(new Review(ID, author, date, comment, rating))
     return this;
   }
 
@@ -106,7 +106,8 @@ function search(products, searchString) {
   let searchResult = [];
   products.forEach(product => {
     if (product instanceof Product) {
-      if (product.name.startsWith(searchString) || product.description.includes(searchString)) searchResult.push(product);
+      if (product.name.startsWith(searchString) ||
+        product.description.includes(searchString)) searchResult.push(product);
     }
   });
   return searchResult;
@@ -138,12 +139,10 @@ function sortProducts(products, sortRule) {
 console.log(new Product("1", "asd").addReview("1", "Andrew", "s", "1990 12 ",
   { service: "5", quality: "4", price: "100", value: "10" }).reviews[0].rating.quality);
 let t_shot = new Product("1", "футболка", "для спорта");
-
 let sportFood = new Product("2", "спортивное питание", "для футболиста");
 t_shot.addReview("2", "Andrew", "s", "1990 12 ",
   { service: "5", quality: "4", price: "100", value: "10" });
 console.log(t_shot.reviews[0].rating.service);
-
 t_shot.addReview("1", "Sеrgey", "s", "1999 2",
   { service: "1", quality: "1", price: "10", value: "15" });
 console.log(t_shot.getAverageRating());
@@ -157,7 +156,6 @@ t_shot.addSize("XXL");
 console.log(t_shot.getSizes());
 t_shot.setImages(["image1", "image2", "image3"]);
 console.log(t_shot.getImage());
-
 console.log(search([t_shot, sportFood], "бол")[0].name);
 let sortedProducts = sortProducts([t_shot, sportFood], "ID");
 console.log(sortedProducts[0].name);
